@@ -1,12 +1,49 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
+import React from 'react';
+import HeroSection from '@/components/HeroSection';
+import Gallery from '@/components/Gallery';
+import MessageSection from '@/components/MessageSection';
+import Countdown from '@/components/Countdown';
+import WishForm from '@/components/WishForm';
+import BirthdayCard from '@/components/BirthdayCard';
+import { motion } from 'framer-motion';
+
+const Index: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <main>
+        <HeroSection />
+        
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <Gallery />
+        </motion.div>
+        
+        <MessageSection />
+        
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <Countdown />
+        </motion.div>
+        
+        <WishForm />
+      </main>
+      
+      <footer className="py-8 text-center text-sm text-muted-foreground">
+        <p>
+          Made with love for Aunty Ify's special day.
+        </p>
+      </footer>
+      
+      <BirthdayCard />
     </div>
   );
 };
