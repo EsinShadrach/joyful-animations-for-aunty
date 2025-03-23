@@ -1,7 +1,12 @@
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { SendHorizontal } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { sendWish } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const WishForm: React.FC = () => {
   const [name, setName] = useState("");
@@ -22,9 +27,8 @@ const WishForm: React.FC = () => {
 
     setIsSending(true);
 
-    // send to superbase
     try {
-      await sendToSuperbase();
+      await sendWish({ name, message });
 
       toast({
         title: "Birthday wish sent!",
@@ -34,18 +38,17 @@ const WishForm: React.FC = () => {
       // Reset form
       setName("");
       setMessage("");
-      setIsSending(false);
     } catch (error) {
+      console.error("Error sending wish:", error);
       toast({
         title: "Oops! Something went wrong.",
         description: "Please try again later.",
         variant: "destructive",
       });
+    } finally {
+      setIsSending(false);
     }
   };
-
-  // send to superbase
-  const sendToSuperbase = async () => {};
 
   return (
     <section className="px-4 py-20 bg-muted/30">
@@ -73,7 +76,7 @@ const WishForm: React.FC = () => {
               >
                 Your Name
               </label>
-              <input
+              <Input
                 id="name"
                 type="text"
                 value={name}
@@ -90,7 +93,7 @@ const WishForm: React.FC = () => {
               >
                 Your Birthday Message
               </label>
-              <textarea
+              <Textarea
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -100,7 +103,7 @@ const WishForm: React.FC = () => {
             </div>
 
             <div>
-              <button
+              <Button
                 type="submit"
                 disabled={isSending}
                 className="flex items-center justify-center w-full px-4 py-3 font-medium text-white gap-2 bg-primary rounded-md transition-all hover:shadow-md disabled:opacity-70"
@@ -116,7 +119,7 @@ const WishForm: React.FC = () => {
                     <span>Send Birthday Wish</span>
                   </>
                 )}
-              </button>
+              </Button>
             </div>
           </form>
         </motion.div>

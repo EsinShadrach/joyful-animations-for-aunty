@@ -5,6 +5,7 @@ import Gallery from '@/components/Gallery';
 import MessageSection from '@/components/MessageSection';
 import Countdown from '@/components/Countdown';
 import WishForm from '@/components/WishForm';
+import WishesDisplay from '@/components/WishesDisplay';
 import BirthdayCard from '@/components/BirthdayCard';
 import { motion } from 'framer-motion';
 
@@ -35,6 +36,15 @@ const Index: React.FC = () => {
         </motion.div>
         
         <WishForm />
+        
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <WishesDisplay />
+        </motion.div>
       </main>
       
       <footer className="py-8 text-center text-sm text-muted-foreground">
